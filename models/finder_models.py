@@ -1,15 +1,15 @@
 from pydantic import BaseModel
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 
 class PayloadModel(BaseModel):
-    county: List[str]
-    city: List[str]
-    zipcode: List[str]
-    type: List[str]
-    form: List[str]
-    price: Dict[str, float]
-    date: Dict[str, int]
-    area: Dict[str, float]
-    discount: Dict[str, float]
-    estimate: Dict[str, float]
+    county: Optional[List[str]]
+    city: Optional[List[str]]
+    zipcode: Optional[List[str]]
+    type: Optional[List[str]]
+    form: Optional[List[str]]
+    price: Optional[Dict[str, float]]
+    date: Optional[Dict[str, float]]
+    area: Optional[Dict[str, float]]
+    discount: Optional[Dict[str, float]]
+    estimate: Optional[Dict[str, float]]
