@@ -15,8 +15,12 @@ class QueryParametersModel(BaseModel):
     estimate: Optional[Dict[str, float]]
 
 
+class SortParametersModel(BaseModel):
+    sort_fields: Optional[List[str]]
+    sort_directions: Optional[List[int]]
+
+
 class PayloadModel(BaseModel):
-    query_parameters = Optional[QueryParametersModel()]
-    bbox = Optional[List[List[float]]]
-    sort_parameters = Optional[Dict[str, int]]
-    page_number = Optional[int]
+    query_parameters: Optional[QueryParametersModel]
+    sort_parameters: Optional[SortParametersModel]
+    page_number: Optional[int]
