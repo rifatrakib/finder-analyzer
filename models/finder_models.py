@@ -3,16 +3,19 @@ from typing import List, Dict, Optional
 
 
 class QueryParametersModel(BaseModel):
-    county: Optional[List[str]]
-    city: Optional[List[str]]
-    zipcode: Optional[List[str]]
-    type: Optional[List[str]]
-    form: Optional[List[str]]
+    county_number: Optional[List[str]]
+    city_number: Optional[List[str]]
+    postal_region: Optional[List[str]]
+    property_type: Optional[List[str]]
+    ownership_form: Optional[List[str]]
     price: Optional[Dict[str, float]]
-    date: Optional[Dict[str, float]]
-    area: Optional[Dict[str, float]]
-    discount: Optional[Dict[str, float]]
-    estimate: Optional[Dict[str, float]]
+    renovated_year: Optional[Dict[str, float]]
+    land_area: Optional[Dict[str, float]]
+    discount_relative: Optional[Dict[str, float]]
+    prediction: Optional[Dict[str, float]]
+    bedroom: Optional[Dict[str, int]]
+    room: Optional[Dict[str, int]]
+    floor: Optional[Dict[str, int]]
 
 
 class SortParametersModel(BaseModel):
@@ -23,4 +26,4 @@ class SortParametersModel(BaseModel):
 class PayloadModel(BaseModel):
     query_parameters: Optional[QueryParametersModel]
     sort_parameters: Optional[SortParametersModel]
-    page_number: Optional[int]
+    page_number: Optional[int] = 1
