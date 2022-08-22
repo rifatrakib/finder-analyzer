@@ -34,7 +34,7 @@ def fetch_table_data(uri, payload):
         {"$project": {"_id": 0}}
     ])
     
-    with MongoConnectionManager(uri, "Dashboard", "listing_collection") as collection:
+    with MongoConnectionManager(uri, "realestate", "listings") as collection:
         data = list(collection.aggregate(pipeline))
     
     return data
