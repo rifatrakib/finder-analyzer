@@ -1,10 +1,9 @@
 from pymongo import MongoClient
-import certifi
 
 
 class MongoConnectionManager():
     def __init__(self, uri, database, collection):
-        self.client = MongoClient(uri, tlsCAFile=certifi.where())
+        self.client = MongoClient(uri)
         self.database = database
         self.collection = collection
     
@@ -21,10 +20,13 @@ def build_match_query(query_parameters):
     match_query = {}
     
     for key, value in query_parameters.items():
+        if not value:
+            continue
+        
         field_name = key.upper()
-        if type(value) == list:
+        if isinstance(value, list):
             match_query[field_name] = {"$in": value}
-        else:
+        elif isinstance(value, dict):
             match_query[field_name] = {
                 "$gte": float(value["min"]),
                 "$lte": float(value["max"])
