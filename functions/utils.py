@@ -33,3 +33,13 @@ def build_match_query(query_parameters):
             }
     
     return match_query
+
+
+def build_geospatial_query(bbox, query_parameters):
+    polygon = {"$geometry": {"type": bbox.polygon, "coordinates": bbox.coordinates}}
+    geospatial_query = {"geometry": {"$geoWithin": polygon}}
+    
+    match_query = build_match_query(query_parameters)
+    geospatial_query.update(match_query)
+    
+    return geospatial_query
