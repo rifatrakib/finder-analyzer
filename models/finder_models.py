@@ -24,12 +24,12 @@ class SortParametersModel(BaseModel):
 
 
 class PolygonModel(BaseModel):
-    type: str
-    coordinates: List[List[int]]
+    type: Optional[str]
+    coordinates: Optional[List[List[float]]]
 
 
 class PayloadModel(BaseModel):
     query_parameters: Optional[QueryParametersModel]
     sort_parameters: Optional[SortParametersModel]
+    bbox: Optional[PolygonModel]
     page_number: Optional[int] = 1
-    bbox = Optional[PolygonModel]
