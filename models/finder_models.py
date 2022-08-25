@@ -23,7 +23,13 @@ class SortParametersModel(BaseModel):
     sort_directions: Optional[List[int]]
 
 
+class PolygonModel(BaseModel):
+    type: str
+    coordinates: List[List[int]]
+
+
 class PayloadModel(BaseModel):
     query_parameters: Optional[QueryParametersModel]
     sort_parameters: Optional[SortParametersModel]
     page_number: Optional[int] = 1
+    bbox = Optional[PolygonModel]
