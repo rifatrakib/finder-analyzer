@@ -1,35 +1,36 @@
-from pydantic import BaseModel
-from typing import List, Dict, Optional
+from geojson_pydantic import Feature, Polygon
+from pydantic import BaseModel, Field
+from typing import List, Dict, Union
+
+
+class RangeQuery(BaseModel):
+    min: float
+    max: float
 
 
 class QueryParametersModel(BaseModel):
-    county_number: Optional[List[str]]
-    city_number: Optional[List[str]]
-    postal_region: Optional[List[str]]
-    property_type: Optional[List[str]]
-    ownership_form: Optional[List[str]]
-    price: Optional[Dict[str, float]]
-    renovated_year: Optional[Dict[str, float]]
-    land_area: Optional[Dict[str, float]]
-    discount_relative: Optional[Dict[str, float]]
-    prediction: Optional[Dict[str, float]]
-    bedroom: Optional[Dict[str, int]]
-    room: Optional[Dict[str, int]]
-    floor: Optional[Dict[str, int]]
+    county_number: Union[List[str], None]
+    city_number: Union[List[str], None]
+    postal_region: Union[List[str], None]
+    property_type: Union[List[str], None]
+    ownership_form: Union[List[str], None]
+    price: Union[RangeQuery, None]
+    renovated_year: Union[RangeQuery, None]
+    land_area: Union[RangeQuery, None]
+    discount_relative: Union[RangeQuery, None]
+    prediction: Union[RangeQuery, None]
+    bedroom: Union[RangeQuery, None]
+    room: Union[RangeQuery, None]
+    floor: Union[RangeQuery, None]
 
 
 class SortParametersModel(BaseModel):
-    sort_fields: Optional[List[str]]
-    sort_directions: Optional[List[int]]
-
-
-class PolygonModel(BaseModel):
-    type: Optional[str]
-    coordinates: Optional[List[List[float]]]
+    sort_fields: Union[List[str], None]
+    sort_directions: Union[List[int], None]
 
 
 class PayloadModel(BaseModel):
-    query_parameters: Optional[QueryParametersModel]
-    sort_parameters: Optional[SortParametersModel]
-    bbox: Optional[PolygonModel]
-    page_number: Optional[int] = 1
+    query_parameters: Union[QueryParametersModel, None]
+    sort_parameters: Union[SortParametersModel, None]
+    bbox: Union[Feature[Polygon, Dict], None]
+    page_number: int = 1
