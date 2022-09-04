@@ -16,6 +16,18 @@ class MongoConnectionManager():
         self.client.close()
 
 
+def restructure_polygon_data(geometry):
+    restructured_polygon = {
+        "type": geometry["type"],
+        "coordinates": [[
+            list(coordinate)\
+                for box in geometry["coordinates"]\
+                for coordinate in box
+        ]]
+    }
+    return restructured_polygon
+
+
 def build_match_query(query_parameters):
     match_query = {}
     
@@ -36,7 +48,7 @@ def build_match_query(query_parameters):
 
 
 def build_geospatial_query(bbox, query_parameters):
-    polygon = {"$geometry": {"type": bbox.polygon, "coordinates": bbox.coordinates}}
+    polygon = {"$geometry": restructure_polygon_data(bbox["geometry"])}
     geospatial_query = {"geometry": {"$geoWithin": polygon}}
     
     match_query = build_match_query(query_parameters)
